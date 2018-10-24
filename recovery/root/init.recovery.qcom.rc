@@ -15,13 +15,6 @@ service sbinqseecomd /sbin/qseecomd
     group root
     seclabel u:r:recovery:s0
 
-service prepdecrypt /sbin/prepdecrypt.sh
-    oneshot
-    disabled
-    user root
-    group root
-    seclabel u:r:recovery:s0
-
 service hwservicemanager /sbin/hwservicemanager
     user root
     group root
@@ -71,8 +64,7 @@ on boot
 on init
     setprop ro.hardware.keystore sdm660
     setprop ro.hardware.gatekeeper sdm660
-    start prepdecrypt
-    #setprop crypto.ready 1
+    setprop crypto.ready 1
 
 on property:crypto.ready=1
     start hwservicemanager
